@@ -2,6 +2,7 @@
 The products are defined as an array in another .js file called products.js. That js code is already included in the html through another <script> Element.
 */
 
+// ====== Creating the html for the landing page - Begin ======
 let productsHTML = '';
 
 products.forEach ((product) => {
@@ -58,9 +59,10 @@ products.forEach ((product) => {
 });
 
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
+// ====== Creating the html for the landing page - End ======
 
-addToCartElementList = document.querySelectorAll('.js-add-to-cart');
-addToCartElementList.forEach((button) => {
+// ====== Adding items to cart - Begin ======
+document.querySelectorAll('.js-add-to-cart').forEach((button) => {
   button.addEventListener('click', () => {
     const productId = button.dataset.productId;
     //console.log(productName);
@@ -69,7 +71,6 @@ addToCartElementList.forEach((button) => {
 
     cart.forEach((item) => {
       if (productId === item.productId) {
-        //item.quantity++;
         matchingItem = item;
       }
     });
@@ -82,7 +83,15 @@ addToCartElementList.forEach((button) => {
         quantity: 1
       });
     }
-    console.log(cart);
+
+    // ====== Displaying the total Cart quantity in the landing page - Begin ======
+    let cartQuantity = 0;
+    cart.forEach(item => cartQuantity += item.quantity );
+
+    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+    // ====== Displaying the total Cart quantity in the landing page - End ======
   });
 });
+// ====== Adding items to cart - End ======
+
 
