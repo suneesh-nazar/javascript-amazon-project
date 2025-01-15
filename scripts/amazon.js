@@ -3,6 +3,7 @@ The products are defined as an array in another .js file called products.js. Tha
 */
 
 import { cart } from '../data/cart.js';
+import { products } from '../data/products.js';
 
 // ====== Creating the html for the landing page - Begin ======
 let productsHTML = '';
