@@ -1,11 +1,11 @@
 /*
-The products are defined as an array in another .js file called products.js. That js code is already included in the html through another <script> Element.
+The products are defined as an array in another .js file called products.js.
 */
 
 import { cart, addToCart } from '../data/cart.js';
 import { products } from '../data/products.js';
 
-// ====== Creating the html for the landing page - Begin ======
+// ===== Generate HTML for displaying all products - Begin =====
 let productsHTML = '';
 
 products.forEach ((product) => {
@@ -62,9 +62,9 @@ products.forEach ((product) => {
 });
 
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
-// ====== Creating the html for the landing page - End ======
+// ===== Generate HTML for displaying all products - End =====
 
-// ====== Function to display total Cart quantity ======
+// ===== Function to display total Cart quantity =====
 function updateCartQuantity() {
   let cartQuantity = 0;
   cart.forEach(cartItem => cartQuantity += cartItem.quantity );
