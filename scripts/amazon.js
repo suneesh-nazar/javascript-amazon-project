@@ -2,6 +2,8 @@
 The products are defined as an array in another .js file called products.js. That js code is already included in the html through another <script> Element.
 */
 
+import { cart } from '../data/cart.js';
+
 // ====== Creating the html for the landing page - Begin ======
 let productsHTML = '';
 
@@ -65,7 +67,6 @@ document.querySelector('.js-products-grid').innerHTML = productsHTML;
 document.querySelectorAll('.js-add-to-cart').forEach((button) => {
   button.addEventListener('click', () => {
     const productId = button.dataset.productId;
-    //console.log(productName);
 
     let matchingItem;
 
