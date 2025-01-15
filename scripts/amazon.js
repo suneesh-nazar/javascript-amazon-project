@@ -2,7 +2,7 @@
 The products are defined as an array in another .js file called products.js. That js code is already included in the html through another <script> Element.
 */
 
-import { cart } from '../data/cart.js';
+import { cart, addToCart } from '../data/cart.js';
 import { products } from '../data/products.js';
 
 // ====== Creating the html for the landing page - Begin ======
@@ -64,36 +64,20 @@ products.forEach ((product) => {
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 // ====== Creating the html for the landing page - End ======
 
-// ====== Adding items to cart - Begin ======
+// ====== Function to display total Cart quantity ======
+function updateCartQuantity() {
+  let cartQuantity = 0;
+  cart.forEach(cartItem => cartQuantity += cartItem.quantity );
+
+  document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+}
+
 document.querySelectorAll('.js-add-to-cart').forEach((button) => {
   button.addEventListener('click', () => {
     const productId = button.dataset.productId;
-
-    let matchingItem;
-
-    cart.forEach((item) => {
-      if (productId === item.productId) {
-        matchingItem = item;
-      }
-    });
-
-    if (matchingItem) {
-      matchingItem.quantity++;
-    } else {
-      cart.push({
-        productId: productId,
-        quantity: 1
-      });
-    }
-
-    // ====== Displaying the total Cart quantity in the landing page - Begin ======
-    let cartQuantity = 0;
-    cart.forEach(item => cartQuantity += item.quantity );
-
-    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
-    // ====== Displaying the total Cart quantity in the landing page - End ======
+    addToCart(productId);
+    updateCartQuantity();
   });
 });
-// ====== Adding items to cart - End ======
 
 
