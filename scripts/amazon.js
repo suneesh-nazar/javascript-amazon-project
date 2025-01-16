@@ -2,7 +2,7 @@
 The products are defined as an array in another .js file called products.js.
 */
 
-import { cart, addToCart } from '../data/cart.js';
+import { cart, addToCart, calculateCartQuantity } from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
 
@@ -65,14 +65,6 @@ products.forEach ((product) => {
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 // ===== Generate HTML for displaying all products - End =====
 
-// ===== Function to display total Cart quantity =====
-function updateCartQuantity() {
-  let cartQuantity = 0;
-  cart.forEach(cartItem => cartQuantity += cartItem.quantity );
-
-  document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
-}
-
 document.querySelectorAll('.js-add-to-cart').forEach((button) => {
   button.addEventListener('click', () => {
     const productId = button.dataset.productId;
@@ -81,4 +73,10 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
   });
 });
 
+// ===== Function to display total Cart quantity =====
+function updateCartQuantity() {
+  document.querySelector('.js-cart-quantity').innerHTML = calculateCartQuantity();
+}
+
+updateCartQuantity();
 

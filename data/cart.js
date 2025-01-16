@@ -38,6 +38,7 @@ export function addToCart(productId) {
   saveToStorage();
 }
 
+// ===== Function to remove items from cart =====
 export function removeFromCart(productId) {
   // ===== Method 1 of removing the item from cart - Begin =====
   // let deleteIndex;
@@ -65,4 +66,26 @@ export function removeFromCart(productId) {
   cart = newCart;
 
   saveToStorage();
+}
+
+
+export function updateQuantity(productId, newQuantity){
+  let matchingItem;
+
+  cart.forEach(cartItem => {
+    if (cartItem.productId === productId){
+      matchingItem = cartItem;
+    }
+  });
+
+  matchingItem.quantity = newQuantity;
+  
+  saveToStorage();
+}
+
+// ===== Function to calculate total items in cart and return it =====
+export function calculateCartQuantity() {
+  let cartQuantity = 0;
+  cart.forEach(cartItem => cartQuantity += cartItem.quantity );
+  return cartQuantity;
 }
