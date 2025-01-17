@@ -1,11 +1,12 @@
 import { calculateCartQuantity, cart } from "../../data/cart.js"
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
-import { getProduct, products } from "../../data/products.js";
+import { getProduct } from "../../data/products.js";
 import formatCurrency from "../utils/money.js";
 
 
 
 export function renderPaymentSummary() {
+  // ===== Generate HTML for order summary - Begin =====
   const cartQuantity = calculateCartQuantity();
 
   let productPriceCents = 0;
@@ -59,4 +60,5 @@ export function renderPaymentSummary() {
   `;
 
   document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML;
+  // ===== Generate HTML for order summary - End =====
 }
