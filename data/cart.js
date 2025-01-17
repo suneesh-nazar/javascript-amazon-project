@@ -56,7 +56,7 @@ export function removeFromCart(productId) {
   // ===== Method 2 of removing the item from cart - Begin =====
   // const newCart = cart.filter(cartItem => productId !== cartItem.productId);
   // cart = newCart;
-  // ===== Method 2 of removing the item from cart - Begin =====
+  // ===== Method 2 of removing the item from cart - End =====
 
   const newCart = [];
 
@@ -71,7 +71,7 @@ export function removeFromCart(productId) {
   saveToStorage();
 }
 
-
+// ===== Function to update the quantity with new quantity in the cart =====
 export function updateQuantity(productId, newQuantity){
   let matchingItem;
 
@@ -91,4 +91,19 @@ export function calculateCartQuantity() {
   let cartQuantity = 0;
   cart.forEach(cartItem => cartQuantity += cartItem.quantity );
   return cartQuantity;
+}
+
+export function updateDeliveryOption(productId, deliveryOptionId) {
+  let matchingItem;
+
+  cart.forEach(cartItem => {
+    if (cartItem.productId === productId){
+      matchingItem = cartItem;
+    }
+  });
+
+  matchingItem.deliveryOptionId = deliveryOptionId;
+  
+  saveToStorage();
+
 }

@@ -1,4 +1,4 @@
-import { calculateCartQuantity, cart, removeFromCart, updateQuantity } from "../data/cart.js";
+import { calculateCartQuantity, cart, removeFromCart, updateDeliveryOption, updateQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from './utils/money.js';
 import { hello } from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
@@ -104,7 +104,9 @@ function deliveryOptionsHTML(matchingProduct, cartItem) {
     const isChecked = deliveryOption.id === cartItem.deliveryOptionId ? 'checked' : '';
 
     html += `
-    <div class="delivery-option">
+    <div class="delivery-option js-delivery-option" 
+      data-product-id="${matchingProduct.id}"
+      data-delivery-option-id="${deliveryOption.id}">
       <input type="radio"
         ${isChecked}
         class="delivery-option-input"
@@ -175,6 +177,15 @@ document.querySelectorAll('.js-quantity-input').forEach((input) => {
 });
   // ===== When pressing enter key in input box - Begin =====
 // ===== Update the cart quantity with new quantity in the input box - End =====
+
+// ===== Update the delivery option according to the radio button - Begin =====
+document.querySelectorAll('.js-delivery-option').forEach((element) => {
+  element.addEventListener('click', () =>{
+    const { productId, deliveryOptionId } = element.dataset;
+    updateDeliveryOption(productId, deliveryOptionId);
+  });
+});
+// ===== Update the delivery option according to the radio button - End =====
 
 // ===== Function to update the item quantity with the new quantity in the input box =====
 function updateCartSummary(productId, newQuantity){
