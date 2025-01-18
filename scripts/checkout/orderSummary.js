@@ -77,7 +77,7 @@ export function renderOrderSummary() {
   // ===== Delete the item from cart when clicking delete link - Begin =====
   document.querySelectorAll('.js-delete-link').forEach ((link) => {
     link.addEventListener('click', () => {
-      const productId = link.dataset.productId;
+      const {productId} = link.dataset;
       removeFromCart(productId);
 
       renderCheckoutHeader();
@@ -90,7 +90,7 @@ export function renderOrderSummary() {
   // ===== Hide the update link and show input box and save link when clicking update link - Begin =====
   document.querySelectorAll('.js-update-link').forEach ((link) => {
     link.addEventListener('click', () => {
-      const productId = link.dataset.productId;
+      const {productId} = link.dataset;
       const container = document.querySelector(`.js-cart-item-container-${productId}`);
       container.classList.add('is-editing-quantity');
     });
@@ -101,7 +101,7 @@ export function renderOrderSummary() {
     // ===== When clicking Save - Begin =====
   document.querySelectorAll('.js-save-link').forEach ((link) => {
     link.addEventListener('click', () => {
-      const productId = link.dataset.productId;
+      const {productId} = link.dataset;
 
       const quantityInput = document.querySelector(`.js-quantity-input-${productId}`);
       const newQuantity = Number(quantityInput.value);
@@ -115,7 +115,7 @@ export function renderOrderSummary() {
   document.querySelectorAll('.js-quantity-input').forEach((input) => {
     input.addEventListener('keydown', (event) => {
       if(event.key === 'Enter'){
-        const productId = input.dataset.productId;
+        const {productId} = input.dataset;
         const newQuantity = Number(input.value);
 
         updateCartSummary(productId, newQuantity);
