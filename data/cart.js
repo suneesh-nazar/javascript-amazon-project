@@ -34,17 +34,13 @@ export function addToCart(productId) {
     }
   });
 
-  // ===== Commenting for testing Jasmine - Begin =====
-  // const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`);
-  // const quantity = Number(quantitySelector.value);
-  // ===== Commenting for testing Jasmine - End =====
-  const quantity = 1;
-  const deliveryOptionId = '1';
+  const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`);
+  const quantity = Number(quantitySelector.value);
   
   if (matchingItem) {
     matchingItem.quantity += quantity;
   } else {
-    cart.push({productId, quantity, deliveryOptionId})
+    cart.push({productId, quantity, deliveryOptionId:'1'})
   }
 
   saveToStorage();
