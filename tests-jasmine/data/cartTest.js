@@ -3,8 +3,12 @@ import { addToCart, cart, loadFromStorage } from "../../data/cart.js";
 describe('add to cart', () => {
   const productId = 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6';
 
+  afterEach(() => {
+    document.querySelector('.js-test-container').innerHTML = '';
+  });
+  
   it('adds an existing product to the cart', () => {
-    document.querySelector('.js-cart-test-container').innerHTML = `
+    document.querySelector('.js-test-container').innerHTML = `
       <select class="js-quantity-selector-${productId}">
         <option selected value="1">1</option>
       </select>
@@ -25,7 +29,7 @@ describe('add to cart', () => {
   });
 
   it('adds a new product to the cart', () => {
-    document.querySelector('.js-cart-test-container').innerHTML = `
+    document.querySelector('.js-test-container').innerHTML = `
       <select class="js-quantity-selector-${productId}">
         <option selected value="1">1</option>
       </select>
