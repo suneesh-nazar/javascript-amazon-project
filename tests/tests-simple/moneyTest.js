@@ -1,4 +1,4 @@
-import formatCurrency  from "../scripts/utils/money.js";
+import formatCurrency  from "../../scripts/utils/money.js";
 
 let testSuiteString = '(test suite: formatCurrency) '
 let testCaseString = '';
