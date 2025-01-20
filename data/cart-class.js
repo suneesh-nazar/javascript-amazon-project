@@ -2,17 +2,19 @@ import { isValidDeliveryOption } from "./deliveryOptions.js";
 
 class Cart {
   cartItems;
-  localStorageKey;
+  // A private property or method is something which the access is restricted within the class.
+  // We can make a private property or method by adding a # in front of them.
+  #localStorageKey;
 
   constructor (localStorageKey) {
-    this.localStorageKey = localStorageKey;
+    this.#localStorageKey = localStorageKey;
     
-    this.loadFromStorage();
+    this.#loadFromStorage();
   }
   
   // ===== Load the cart from localStorage or assign default values if undefined =====
-  loadFromStorage() {
-    this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey)) || 
+  #loadFromStorage() {
+    this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey)) || 
       [{
         productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
         quantity: 2,
@@ -26,7 +28,7 @@ class Cart {
 
   // ===== Save the cart into localStorage =====
   saveToStorage() {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
   }
 
   // ===== Function to add items to cart =====
