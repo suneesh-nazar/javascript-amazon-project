@@ -1,10 +1,9 @@
-/*
-Items added to the card will be captured using this js data structure
-*/
+import { isValidDeliveryOption } from "./deliveryOptions.js";
 
 export let cart;
 loadFromStorage();
 
+// ===== Items added to the card will be captured using this js data structure =====
 // ===== Load the cart from localStorage or assign default values if undefined =====
 export function loadFromStorage() {
   cart = JSON.parse(localStorage.getItem('cart')) || 
@@ -50,12 +49,16 @@ export function addToCart(productId) {
 export function removeFromCart(productId) {
   // ===== Method 1 of removing the item from cart - Begin =====
   // let deleteIndex;
+
   // cart.forEach((cartItem, index) => {
   //   if (productId === cartItem.productId) {
   //     deleteIndex = index;
   //   }
   // });
-  // cart.splice(deleteIndex,1);
+  
+  // if(deleteIndex || deleteIndex === 0) {
+  //   cart.splice(deleteIndex, 1);
+  // }
   // ===== Method 1 of removing the item from cart - End =====
 
   // ===== Method 2 of removing the item from cart - Begin =====
@@ -63,6 +66,7 @@ export function removeFromCart(productId) {
   // cart = newCart;
   // ===== Method 2 of removing the item from cart - End =====
 
+  // ===== Method 3 of removing the item from cart - Begin =====
   const newCart = [];
 
   cart.forEach(cartItem => {
@@ -72,6 +76,7 @@ export function removeFromCart(productId) {
   });
 
   cart = newCart;
+  // ===== Method 3 of removing the item from cart - End =====
 
   saveToStorage();
 }
@@ -98,17 +103,26 @@ export function calculateCartQuantity() {
   return cartQuantity;
 }
 
+// ===== Function to update delivery option =====
 export function updateDeliveryOption(productId, deliveryOptionId) {
+  if(!isValidDeliveryOption(deliveryOptionId)){
+    return;
+  }
+  
   let matchingItem;
-
+  
   cart.forEach(cartItem => {
     if (cartItem.productId === productId){
       matchingItem = cartItem;
     }
   });
 
-  matchingItem.deliveryOptionId = deliveryOptionId;
+  if(!matchingItem) {
+    return;
+  } 
   
+  matchingItem.deliveryOptionId = deliveryOptionId;
+
   saveToStorage();
 
 }

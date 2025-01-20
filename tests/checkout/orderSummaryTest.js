@@ -1,5 +1,6 @@
 import { renderOrderSummary } from "../../scripts/checkout/orderSummary.js";
 import { cart, loadFromStorage } from "../../data/cart.js";
+import { renderPaymentSummary } from "../../scripts/checkout/paymentSummary.js";
 
 describe('test suite: renderOrderSummary', () => {
   const productId1 = 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6';
@@ -26,6 +27,7 @@ describe('test suite: renderOrderSummary', () => {
     loadFromStorage();
 
     renderOrderSummary();
+    renderPaymentSummary();
   });
 
   afterEach(() => {
@@ -36,6 +38,10 @@ describe('test suite: renderOrderSummary', () => {
     expect(document.querySelectorAll('.js-cart-item-container').length).toEqual(2);
     expect(document.querySelector(`.js-product-quantity-${productId1}`).innerText).toContain('Quantity: 2');
     expect(document.querySelector(`.js-product-quantity-${productId2}`).innerText).toContain('Quantity: 1');
+    expect(document.querySelector(`.js-product-name-${productId1}`).innerText).toEqual("Black and Gray Athletic Cotton Socks - 6 Pairs");
+    expect(document.querySelector(`.js-product-name-${productId2}`).innerText).toEqual("Intermediate Size Basketball");
+    expect(document.querySelector(`.js-product-price-${productId1}`).innerText).toEqual('$10.90');
+    expect(document.querySelector(`.js-product-price-${productId2}`).innerText).toEqual('$20.95');
   });
 
   it('removes a product', () => {
@@ -45,6 +51,34 @@ describe('test suite: renderOrderSummary', () => {
     expect(document.querySelector(`.js-cart-item-container-${productId1}`)).toBeNull();
     expect(document.querySelector(`.js-cart-item-container-${productId2}`)).not.toBeNull();
     expect(cart.length).toEqual(1);
-    expect(cart[0].productId).toEqual(productId2);
+    expect(cart[0].productId).toEqual(productId2);expect(document.querySelector(`.js-product-name-${productId2}`).innerText).toEqual("Intermediate Size Basketball");
+    expect(document.querySelector(`.js-product-price-${productId2}`).innerText).toEqual('$20.95');
+  });
+
+  it('updates the quantity of a product', () => {
+    document.querySelector(`.js-update-link-${productId1}`).click();
+    expect(document.querySelector(`.js-cart-item-container-${productId1}`).classList.length).toEqual(4);
+    expect(document.querySelector(`.js-quantity-input-${productId1}`).value).toEqual('2');
+    expect(document.querySelector(`.js-cart-item-container-${productId2}`).classList.length).toEqual(3);
+    expect(document.querySelector(`.js-quantity-input-${productId2}`).value).toEqual('1');
+
+    document.querySelector(`.js-quantity-input-${productId1}`).value = 3;
+    document.querySelector(`.js-save-link-${productId1}`).click();
+    expect(document.querySelector(`.js-quantity-input-${productId1}`).value).toEqual('3');
+    expect(document.querySelector(`.js-product-quantity-${productId1}`).innerText).toContain('Quantity: 3');
+    expect(document.querySelector(`.js-cart-item-container-${productId1}`).classList.length).toEqual(3);
+    expect(document.querySelector(`.js-product-quantity-${productId2}`).innerText).toContain('Quantity: 1');
+    expect(document.querySelector(`.js-cart-item-container-${productId2}`).classList.length).toEqual(3);
+  });
+
+  it('updates the delivery option', () => {
+    document.querySelector(`.js-delivery-option-${productId1}-3`).click();
+    expect(document.querySelector(`.js-delivery-option-input-${productId1}-3`).checked).toEqual(true);
+    expect(cart.length).toEqual(2);
+    expect(cart[0].productId).toEqual(productId1);
+    expect(cart[0].deliveryOptionId).toEqual('3');
+    expect(document.querySelector(`.js-delivery-date-${productId1}`).innerText).toContain(document.querySelector(`.js-delivery-option-date-${productId1}-3`).innerText);
+    expect(document.querySelector('.js-payment-summary-shipping-price').innerText).toEqual('$14.98');
+    expect(document.querySelector('.js-payment-summary-total-price').innerText).toEqual('$63.50');
   });
 });

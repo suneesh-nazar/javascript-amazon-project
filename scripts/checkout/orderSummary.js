@@ -19,7 +19,7 @@ export function renderOrderSummary() {
 
     cartSummaryHTML += `
       <div class="cart-item-container js-cart-item-container js-cart-item-container-${matchingProduct.id}">
-        <div class="delivery-date">
+        <div class="delivery-date js-delivery-date-${matchingProduct.id}">
           Delivery date: ${dateString}
         </div>
 
@@ -28,29 +28,39 @@ export function renderOrderSummary() {
             src="${matchingProduct.image}">
 
           <div class="cart-item-details">
-            <div class="product-name">
+            <div class="product-name js-product-name-${matchingProduct.id}">
               ${matchingProduct.name}
             </div>
-            <div class="product-price">
+            <div class="product-price js-product-price-${matchingProduct.id}">
               $${formatCurrency(matchingProduct.priceCents)}
             </div>
             <div class="product-quantity js-product-quantity-${matchingProduct.id}">
               <span>
                 Quantity: <span class="quantity-label js-quantity-label-${matchingProduct.id}">${cartItem.quantity}</span>
               </span>
-              <span class="update-quantity-link link-primary js-update-link" data-product-id="${matchingProduct.id}">
-                Update
+              <span class="
+                  update-quantity-link 
+                  link-primary 
+                  js-update-link 
+                  js-update-link-${matchingProduct.id}" 
+                data-product-id="${matchingProduct.id}">Update
               </span>
               <input 
                 type="number" 
-                class="quantity-input js-quantity-input js-quantity-input-${matchingProduct.id}" 
+                class="quantity-input 
+                  js-quantity-input 
+                  js-quantity-input-${matchingProduct.id}" 
                 value="${cartItem.quantity}" 
                 min="0" 
                 max="999" 
                 data-product-id="${matchingProduct.id}"
               />
-              <span class="save-quantity-link link-primary js-save-link" data-product-id="${matchingProduct.id}">
-                Save
+              <span 
+                class="save-quantity-link 
+                  link-primary 
+                  js-save-link 
+                  js-save-link-${matchingProduct.id}" 
+                data-product-id="${matchingProduct.id}">Save
               </span>
               <span 
                 class="
@@ -152,16 +162,19 @@ function deliveryOptionsHTML(matchingProduct, cartItem) {
     const isChecked = deliveryOption.id === cartItem.deliveryOptionId ? 'checked' : '';
 
     html += `
-    <div class="delivery-option js-delivery-option" 
+    <div 
+      class="delivery-option 
+        js-delivery-option 
+        js-delivery-option-${matchingProduct.id}-${deliveryOption.id}" 
       data-product-id="${matchingProduct.id}"
       data-delivery-option-id="${deliveryOption.id}">
       <input type="radio"
         ${isChecked}
-        class="delivery-option-input"
+        class="delivery-option-input js-delivery-option-input-${matchingProduct.id}-${deliveryOption.id}"
         name="delivery-option-${matchingProduct.id}">
       <div>
-        <div class="delivery-option-date">
-          ${dateString}
+        <div class="delivery-option-date 
+          js-delivery-option-date-${matchingProduct.id}-${deliveryOption.id}">${dateString}
         </div>
         <div class="delivery-option-price">
           ${priceString} Shipping
