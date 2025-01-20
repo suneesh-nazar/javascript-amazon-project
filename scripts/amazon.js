@@ -2,9 +2,8 @@
 The products are defined as an array in another .js file called products.js.
 */
 
-import { cart, addToCart, calculateCartQuantity } from '../data/cart.js';
+import { addToCart, calculateCartQuantity } from '../data/cart.js';
 import { products } from '../data/products.js';
-import { formatCurrency } from './utils/money.js';
 
 // ===== Generate HTML for displaying all products - Begin =====
 let productsHTML = '';
@@ -26,12 +25,12 @@ products.forEach ((product) => {
     <div class="product-rating-container">
       <img
         class="product-rating-stars"
-        src="images/ratings/rating-${product.rating.stars * 10}.png"
+        src="${product.getStarsUrl()}"
       />
       <div class="product-rating-count link-primary">${product.rating.count}</div>
     </div>
 
-    <div class="product-price">$${formatCurrency(product.priceCents)}</div>
+    <div class="product-price">${product.getPrice()}</div>
 
     <div class="product-quantity-container">
       <select class="js-quantity-selector-${product.id}">
