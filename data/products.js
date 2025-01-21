@@ -33,6 +33,28 @@ class Product {
   getPrice() {
     return `$${formatCurrency(this.priceCents)}`;
   }
+
+  extraInfoHTML() {
+    return '';
+  }
+}
+
+// Inheritance - Inheriting the parent class' properties and methods and the child class can have additional properties/methods.
+// The Product class is inherited by Clothing class.
+class Clothing extends Product {
+  sizeChartLink;
+
+  constructor(productDetails) {
+    super(productDetails);
+    this.sizeChartLink = productDetails.sizeChartLink;
+  }
+
+  // Method overriding - overriding the parent class' method with new functionality defined in inherited class.
+  // Polymorphism - taking the behaviour based on the defined class.
+  // Here extraINFOHTML() takes one of the two behaviours based on the creator is either Product or Clothing.
+  extraInfoHTML() {
+    return `<a href="${this.sizeChartLink}" target="_blank">Size chart</a>`;
+  }
 }
 
 export const products = [
@@ -694,4 +716,9 @@ export const products = [
       "mens"
     ]
   }
-].map((productDetails) => new Product(productDetails));
+].map((productDetails) => {
+  if (productDetails.type === 'clothing') {
+    return new Clothing(productDetails);
+  }
+  return new Product(productDetails);
+});
