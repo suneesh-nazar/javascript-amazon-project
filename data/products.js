@@ -57,6 +57,47 @@ class Clothing extends Product {
   }
 }
 
+/*
+// Built-in classes provided by the language
+const date = new Date();
+console.log(date);
+console.log(date.toLocaleTimeString());
+console.log(date.toLocaleString());
+*/
+
+/*
+// "this" is undefined inside a module
+console.log(this);
+
+// Inside the object this is undefined, but inside the method (function in an object) this will refer to object
+const object2 = {
+  a: 2,
+  b: this.a //throws undefined error
+}
+*/
+
+/*
+// inside a function "this" is undefined
+function logThis() {
+  console.log(this);
+}
+logThis(); // will print undefined as there is nothing to point for "this"
+// inside a function we can change this to whatever we want using the function ".call()"
+logThis.call('hello');
+logThis.call(2);
+logThis.call(['hello', 'world']);
+logThis.call({a: 'hello', b: 'world'});
+
+// Arrow functions do not change the value of "this" inside the function.
+const object3 = {
+  method: () => {
+    console.log(this);
+  }
+}
+object3.method(); // will print undefined as there is nothing to point for "this" inside an arrow function
+object3.method.call('hello'); // will print undefined as we cannot change the value of "this" in an arrow function
+*/
+
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
