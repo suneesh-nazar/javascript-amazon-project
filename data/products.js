@@ -11,7 +11,7 @@ export function getProduct(productId){
     return matchingProduct;
 }
 
-class Product {
+export class Product {
   id;
   image;
   name;
@@ -41,11 +41,13 @@ class Product {
 
 // Inheritance - Inheriting the parent class' properties and methods and the child class can have additional properties/methods.
 // The Product class is inherited by Clothing class.
-class Clothing extends Product {
+export class Clothing extends Product {
+  type;
   sizeChartLink;
 
   constructor(productDetails) {
     super(productDetails);
+    this.type = productDetails.type;
     this.sizeChartLink = productDetails.sizeChartLink;
   }
 
@@ -57,12 +59,14 @@ class Clothing extends Product {
   }
 }
 
-class Appliance extends Product {
+export class Appliance extends Product {
+  type;
   instructionsLink;
   warrantyLink;
 
   constructor(productDetails) {
     super(productDetails);
+    this.type = productDetails.type;
     this.instructionsLink = productDetails.instructionsLink;
     this.warrantyLink = productDetails.warrantyLink;
   }
