@@ -117,6 +117,31 @@ object3.method(); // will print undefined as there is nothing to point for "this
 object3.method.call('hello'); // will print undefined as we cannot change the value of "this" in an arrow function
 */
 
+export let products = [];
+
+export function loadProducts(fun) {
+  const xhr = new XMLHttpRequest();
+
+  xhr.addEventListener('load', () => {
+    products = (JSON.parse(xhr.response)).map((productDetails) => {
+      if (productDetails.type === 'clothing') {
+        return new Clothing(productDetails);
+      } else if(productDetails.type === 'appliance'){
+        return new Appliance(productDetails);
+      }
+      return new Product(productDetails);
+    });
+
+    console.log('load products');
+
+    fun();
+  });
+  xhr.open('GET', 'https://supersimplebackend.dev/products')
+  xhr.send()
+}
+
+// loadProducts();
+/*
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -796,3 +821,4 @@ export const products = [
   }
   return new Product(productDetails);
 });
+*/
