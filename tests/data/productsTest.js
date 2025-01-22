@@ -1,6 +1,8 @@
-import { Appliance, Clothing, getProduct, Product } from "../../data/products.js";
+import { Appliance, Clothing, getProduct, loadProducts, Product } from "../../data/products.js";
 
 describe('test suite: get the product', () => {
+  beforeAll((done) => loadProducts(() => done()));
+
   const productId = 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6';
   let product;
   it('gets an existing product from products', () => {
