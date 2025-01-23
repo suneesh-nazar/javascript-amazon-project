@@ -96,13 +96,6 @@ export function updateQuantity(productId, newQuantity){
   saveToStorage();
 }
 
-// ===== Function to calculate total items in cart and return it =====
-export function calculateCartQuantity() {
-  let cartQuantity = 0;
-  cart.forEach(cartItem => cartQuantity += cartItem.quantity );
-  return cartQuantity;
-}
-
 // ===== Function to update delivery option =====
 export function updateDeliveryOption(productId, deliveryOptionId) {
   if(!isValidDeliveryOption(deliveryOptionId)){
@@ -124,6 +117,13 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
   matchingItem.deliveryOptionId = deliveryOptionId;
 
   saveToStorage();
+}
+
+// ===== Function to calculate total items in cart and return it =====
+export function calculateCartQuantity() {
+  let cartQuantity = 0;
+  cart.forEach(cartItem => cartQuantity += cartItem.quantity );
+  return cartQuantity;
 }
 
 export function loadCart(fun) {
