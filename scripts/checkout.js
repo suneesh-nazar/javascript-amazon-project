@@ -7,7 +7,39 @@ import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 // import '../data/car.js';
 // import '../data/backend-practice.js';
 
-/*
+async function loadPage() {
+
+  await loadProductsFetch();
+  
+  await new Promise((resolve) => {
+    loadCart(() => {
+      resolve('value3');
+    });
+  });
+
+  renderCheckoutHeader();
+  renderOrderSummary();
+  renderPaymentSummary();
+}
+
+loadPage();
+
+/* async--await example
+async function loadPage() {
+  console.log('load page');
+
+  await loadProductsFetch();
+  
+  return 'value2'
+}
+
+loadPage().then((value) => {
+  console.log('next step');
+  console.log(value);
+});
+*/
+
+/* Promise practice example
 new Promise((resolve) => {
   console.log('start promise');
   loadProducts(() => {
@@ -19,7 +51,7 @@ new Promise((resolve) => {
 });
 */
 
-/*
+/* loadProducts using Promise
 new Promise((resolve) => {
   loadProducts(() => {
     resolve();
@@ -31,7 +63,7 @@ new Promise((resolve) => {
 });
 */
 
-/*
+/* loadProducts and loadCart using Promise
 new Promise((resolve) => {
   loadProducts(() => {
     resolve('value1');
@@ -53,7 +85,7 @@ new Promise((resolve) => {
 });
 */
 
-/*
+/* loadProducts and loadCart using PromiseAll
 Promise.all([
   new Promise((resolve) => {
     loadProducts(() => {
@@ -73,21 +105,23 @@ Promise.all([
 });
 */
 
+/* loadProductsFetch and loadCart using PromiseAll
 Promise.all([
   loadProductsFetch(),
   new Promise((resolve) => {
     loadCart(() => {
       resolve();
     });
-  })
+  });
 ]).then((values) => {
   console.log(values);
   renderCheckoutHeader();
   renderOrderSummary();
   renderPaymentSummary();
 });
+*/
 
-/*
+/* loadProducts using CallBack
 loadProducts(() => {
   renderCheckoutHeader();
   renderOrderSummary();
@@ -95,7 +129,7 @@ loadProducts(() => {
 });
 */
 
-/*
+/* loadProducts and loadCart using CallBack
 loadProducts(() => {
   loadCart(() => {
     renderCheckoutHeader();
