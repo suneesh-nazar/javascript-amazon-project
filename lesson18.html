@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* // GET greeting using xhr from supersimplebackend/greeting
+      const xhr = new XMLHttpRequest();
+      xhr.addEventListener('load', () => {
+        console.log(xhr.response);
+      });
+
+      xhr.open('GET', 'https://supersimplebackend.dev/greeting');
+      xhr.send();
+      */
+
+      /* // GET greeting using fetch from supersimplebackend/greeting
+      fetch('https://supersimplebackend.dev/greeting').then((greetingResponse) => {
+        return greetingResponse.text();
+      }).then((fetchResponse) => {
+        console.log(fetchResponse);
+      });
+      */
+
+      /* // Greeting using fetch - async-await from supersimplebackend/greeting
+      async function getGreeting() {
+        const fetchGreeting = await fetch('https://supersimplebackend.dev/greeting');
+        const fetchResponse = await fetchGreeting.text();
+        console.log(fetchResponse);
+      }
+      getGreeting();
+      */
+
+      /* // POST greeting to supersimplebackend/greeting
+      async function postGreeting() {
+        const fetchGreeting = await fetch('https://supersimplebackend.dev/greeting', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({name: 'DigitAlWays'})
+        });
+        const fetchResponse = await fetchGreeting.text();
+        console.log(fetchResponse);
+      }
+      postGreeting();
+      */
+
+      /* // GET request to amazon.com
+      async function getAmazon() {
+        const fetchAmazon = await fetch('https://amazon.com');
+        const fetchResponse = await fetchAmazon.text();
+        console.log(fetchResponse);
+      }
+      getAmazon();
+      */
+
+      /* // GET request to amazon.com and try-catch
+
+      async function getAmazon() {
+        try {
+          const fetchAmazon = await fetch('https://amazon.com');
+          const fetchResponse = await fetchAmazon.text();
+          console.log(fetchResponse);
+        } catch (error) {
+          console.log(`CORS error: ${error}. Your request was blocked by backend.`);
+        }
+      }
+      getAmazon();
+      */
+
+      // POST greeting to supersimplebackend/greeting without body
+      async function postGreeting() {
+        try{
+          const fetchGreeting = await fetch('https://supersimplebackend.dev/greeting', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'}
+          });
+          if (fetchGreeting.status >= 400) {
+            throw fetchGreeting;
+          }
+          const fetchResponse = await fetchGreeting.text();
+          console.log(fetchResponse);
+        } catch (error) {
+          if (error.status === 400){
+            errorText = await error.json();
+            console.log(errorText.errorMessage);
+          } else {
+            console.log(`Network error. Please try again later.`)
+          }
+        }
+      }
+      postGreeting();
+    </script>
+  </body>
+</html>
