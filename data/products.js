@@ -1,5 +1,6 @@
 import formatCurrency from "../scripts/utils/money.js";
 
+// ===== Function to get a matching product from the products
 export function getProduct(productId){
   let matchingProduct;
 
@@ -11,6 +12,7 @@ export function getProduct(productId){
     return matchingProduct;
 }
 
+// ===== Class to define the product =====
 export class Product {
   id;
   image;
@@ -41,6 +43,8 @@ export class Product {
 
 // Inheritance - Inheriting the parent class' properties and methods and the child class can have additional properties/methods.
 // The Product class is inherited by Clothing class.
+
+// ===== Class to define the Clothing products =====
 export class Clothing extends Product {
   type;
   sizeChartLink;
@@ -59,6 +63,7 @@ export class Clothing extends Product {
   }
 }
 
+// ===== Class to define the Clothing products =====
 export class Appliance extends Product {
   type;
   instructionsLink;
@@ -119,6 +124,7 @@ object3.method.call('hello'); // will print undefined as we cannot change the va
 
 export let products = [];
 
+// ===== Function to fetch products from backend using fetch =====
 export function loadProductsFetch() {
   const promise = fetch('https://supersimplebackend.dev/products').then((response) => {
     return response.json();
@@ -141,12 +147,7 @@ export function loadProductsFetch() {
   return promise;
 }
 
-/*
-loadProductsFetch().then(() =>{
-  console.log('next step');
-});
-*/
-
+// ===== Function to get the products from backend using xhr =====
 export function loadProducts(fun) {
   const xhr = new XMLHttpRequest();
 
@@ -175,7 +176,7 @@ export function loadProducts(fun) {
 }
 
 // loadProducts();
-/*
+/* Defining the products array
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",

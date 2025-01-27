@@ -126,6 +126,7 @@ export function calculateCartQuantity() {
   return cartQuantity;
 }
 
+// ===== Function to load the cart using xhr =====
 export function loadCart(fun) {
   const xhr = new XMLHttpRequest();
 
@@ -135,4 +136,12 @@ export function loadCart(fun) {
   });
   xhr.open('GET', 'https://supersimplebackend.dev/cart')
   xhr.send()
+}
+
+// ===== Function to load the cart using fetch =====
+export async function loadCartFetch() {
+  const response = await fetch('https://supersimplebackend.dev/cart');
+  const cartData = await response.text();
+  console.log(cartData);
+  return cartData;
 }
