@@ -51,7 +51,7 @@ async function loadPage() {
 // ===== Function to load the checkout page - fetch to loadCart & PromiseAll =====
 async function loadPage() {
   try {
-    Promise.all([
+    await Promise.all([
       loadProductsFetch(),
       loadCartFetch()
     ]);
