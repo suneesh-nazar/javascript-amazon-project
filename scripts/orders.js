@@ -2,7 +2,7 @@ import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { orders } from "../data/orders.js";
 import formatCurrency from './utils/money.js';
 import { getProduct, loadProductsFetch } from '../data/products.js';
-import { addToCart } from '../data/cart.js';
+import { addToCart, calculateCartQuantity } from '../data/cart.js';
 
 // ===== Function to load the orders page =====
 async function loadOrdersPage(){
@@ -92,7 +92,6 @@ async function loadOrdersPage(){
   buyAgainElements.forEach((buyAgainElement) => {
     buyAgainElement.addEventListener('click', () => {
       const productId = buyAgainElement.dataset.productId;
-      console.log(productId);
       addToCart(productId);
 
       buyAgainElement.innerHTML = 'Added';
@@ -106,5 +105,12 @@ async function loadOrdersPage(){
   // ===== Add items to cart on click of Buy Again button - End =====
 
 }
+
+// ===== Function to display total Cart quantity =====
+function updateCartQuantity() {
+  document.querySelector('.js-cart-quantity').innerHTML = calculateCartQuantity();
+}
+
+updateCartQuantity();
 
 loadOrdersPage();
