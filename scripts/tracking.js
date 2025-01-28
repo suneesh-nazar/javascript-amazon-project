@@ -21,6 +21,11 @@ async function loadTrackingPage() {
   });
 
   const estimatedDeliveryTimeString = dayjs(orderedProduct.estimatedDeliveryTime).format('dddd, MMMM D');
+
+  const today = dayjs();
+  const orderTime = dayjs(trackingOrder.orderTime);
+  const deliveryTime = dayjs(orderedProduct.estimatedDeliveryTime);
+  const deliveryProgressPercent = ((today-orderTime)/(deliveryTime-orderTime))*100;
   
   const trackingHTML = `
     <a class="back-to-orders-link link-primary" href="orders.html">
@@ -42,19 +47,19 @@ async function loadTrackingPage() {
     <img class="product-image" src="${trackingProduct.image}">
   
     <div class="progress-labels-container">
-      <div class="progress-label">
+      <div class="progress-label ${deliveryProgressPercent < 50 ? 'current-status' : ''}">
         Preparing
       </div>
-      <div class="progress-label current-status">
+      <div class="progress-label ${(deliveryProgressPercent >= 50 && deliveryProgressPercent < 100) ? 'current-status' : ''}">
         Shipped
       </div>
-      <div class="progress-label">
+      <div class="progress-label ${deliveryProgressPercent >= 100 ? 'current-status' : ''}">
         Delivered
       </div>
     </div>
   
     <div class="progress-bar-container">
-      <div class="progress-bar"></div>
+      <div class="progress-bar" style="width: ${deliveryProgressPercent}%"></div>
     </div>`;
   
   document.querySelector('.js-order-tracking').innerHTML = trackingHTML;
