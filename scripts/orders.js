@@ -2,7 +2,8 @@ import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { orders } from "../data/orders.js";
 import formatCurrency from './utils/money.js';
 import { getProduct, loadProductsFetch } from '../data/products.js';
-import { addToCart, calculateCartQuantity } from '../data/cart.js';
+import { addToCart } from '../data/cart.js';
+import { renderAmazonHeader } from './amazonHeader.js';
 
 // ===== Function to load the orders page =====
 async function loadOrdersPage(){
@@ -106,11 +107,5 @@ async function loadOrdersPage(){
 
 }
 
-// ===== Function to display total Cart quantity =====
-function updateCartQuantity() {
-  document.querySelector('.js-cart-quantity').innerHTML = calculateCartQuantity();
-}
-
-updateCartQuantity();
-
+renderAmazonHeader();
 loadOrdersPage();

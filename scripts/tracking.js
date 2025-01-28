@@ -1,7 +1,7 @@
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { getOrder } from "../data/orders.js";
 import { getProduct, loadProductsFetch } from "../data/products.js";
-import { calculateCartQuantity } from '../data/cart.js';
+import { renderAmazonHeader } from './amazonHeader.js';
 
 // ===== Function to load the tracking page =====
 async function loadTrackingPage() {
@@ -65,11 +65,5 @@ async function loadTrackingPage() {
   document.querySelector('.js-order-tracking').innerHTML = trackingHTML;
 }
 
-// ===== Function to display total Cart quantity =====
-function updateCartQuantity() {
-  document.querySelector('.js-cart-quantity').innerHTML = calculateCartQuantity();
-}
-
-updateCartQuantity();
-
+renderAmazonHeader();
 loadTrackingPage();

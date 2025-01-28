@@ -2,8 +2,9 @@
 The products are defined as an array in another .js file called products.js.
 */
 
-import { addToCart, calculateCartQuantity } from '../data/cart.js';
+import { addToCart } from '../data/cart.js';
 import { loadProducts, products } from '../data/products.js';
+import { renderAmazonHeader, updateCartQuantity } from './amazonHeader.js';
 
 loadProducts(renderProductsGrid);
 
@@ -93,10 +94,6 @@ function renderProductsGrid() {
   });
 }
 
-// ===== Function to display total Cart quantity =====
-function updateCartQuantity() {
-  document.querySelector('.js-cart-quantity').innerHTML = calculateCartQuantity();
-}
+renderAmazonHeader();
 
-updateCartQuantity();
 
