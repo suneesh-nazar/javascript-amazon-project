@@ -13,9 +13,9 @@ export function renderAmazonHeader(){
     </div>
   
     <div class="amazon-header-middle-section">
-      <input class="search-bar" type="text" placeholder="Search" />
+      <input class="search-bar js-search-bar" type="text" placeholder="Search" />
   
-      <button class="search-button">
+      <button class="search-button js-search-button">
         <img class="search-icon" src="images/icons/search-icon.png" />
       </button>
     </div>
@@ -35,6 +35,18 @@ export function renderAmazonHeader(){
   
   document.querySelector('.js-amazon-header').innerHTML = amazonHeaderHTML;
   updateCartQuantity();
+
+  document.querySelector('.js-search-button').addEventListener('click', () => {
+    const searchText = document.querySelector('.js-search-bar').value;
+    window.location.href = `amazon.html?search=${searchText}`;
+  });
+
+  document.querySelector('.js-search-bar').addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      const searchText = document.querySelector('.js-search-bar').value;
+      window.location.href = `amazon.html?search=${searchText}`;
+    }
+  });
 }
 
 // ===== Function to display total Cart quantity =====

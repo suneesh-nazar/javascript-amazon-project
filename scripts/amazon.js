@@ -12,7 +12,25 @@ function renderProductsGrid() {
   // ===== Generate HTML for displaying all products - Begin =====
   let productsHTML = '';
 
-  products.forEach ((product) => {
+  const url = new URL(window.location.href);
+  const searchString = url.searchParams.get('search');
+  
+  let filteredProducts = products;
+  
+  if(searchString){
+    filteredProducts = products.filter((product) => {
+      let matchingKeyword = false;
+      product.keywords.forEach((keyword) => {
+        if (keyword.toLowerCase().includes(searchString.toLowerCase())) {
+          matchingKeyword = true;
+        }
+      });
+
+      return matchingKeyword || product.name.toLowerCase().includes(searchString.toLowerCase());
+    });
+  }
+
+  filteredProducts.forEach ((product) => {
     productsHTML += `
     <div class="product-container">
       <div class="product-image-container">
