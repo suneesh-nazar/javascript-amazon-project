@@ -81,6 +81,12 @@ export function removeFromCart(productId) {
   saveToStorage();
 }
 
+// ===== Function to reset the cart =====
+export function resetCart() {
+  cart = [];
+  saveToStorage();
+}
+
 // ===== Function to update the quantity with new quantity in the cart =====
 export function updateQuantity(productId, newQuantity){
   let matchingItem;
